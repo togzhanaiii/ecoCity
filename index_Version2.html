@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ECO-FRIENDLY</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#000;line-height:1.6}
+    .container{max-width:400px;margin:0 auto;padding:20px;min-height:100vh;padding-bottom:96px}
+    .header{text-align:center;margin-bottom:30px}
+    .header h1{color:#34C759;font-size:28px;font-weight:700}
+    .header h2{font-size:20px;font-weight:600}
+    .input-field{width:100%;padding:15px;margin:10px 0;border:1px solid #D1D1D6;border-radius:10px;font-size:17px}
+    .input-field:focus{border-color:#34C759;outline:none;box-shadow:0 0 0 4px rgba(52,199,89,0.08)}
+    .btn-primary,.btn-secondary{width:100%;padding:15px;border-radius:10px;font-size:17px;font-weight:600;cursor:pointer;margin:10px 0}
+    .btn-primary{background:#34C759;color:#fff;border:0}
+    .btn-secondary{background:transparent;color:#34C759;border:1px solid #D1D1D6}
+    .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);background:#fff;border-top:1px solid #D1D1D6;display:flex;justify-content:space-around;padding:10px 0;z-index:1000;width:100%;max-width:400px;box-shadow:0 -1px 6px rgba(0,0,0,0.04)}
+    .nav-item{text-decoration:none;color:#8E8E93;text-align:center;font-size:11px;flex:1;padding:6px 4px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .nav-item.active{color:#34C759;font-weight:600;background:rgba(52,199,89,0.04)}
+    .map-container{margin:20px 0}
+    .map-placeholder{height:min(60vh,420px);background:#F2F2F7;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#6B6B6B;position:relative;padding:12px}
+    .map-marker{position:absolute;font-size:22px;cursor:pointer}
+    .task-card{background:#fff;border-radius:12px;padding:16px;margin:10px 0;border:1px solid #F2F2F7}
+    .task-title{font-weight:600;font-size:17px;margin-bottom:8px}
+    .task-info{color:#6B6B6B;font-size:15px;margin-bottom:12px}
+    .task-points{color:#34C759;font-weight:600;font-size:16px}
+    .progress-bar{background:#E5E5EA;border-radius:3px;height:6px;margin:10px 0;overflow:hidden}
+    .progress-fill{background:#34C759;height:100%;border-radius:3px}
+    .tabs{display:flex;margin:20px 0;border-bottom:1px solid #D1D1D6}
+    .tab{padding:10px 20px;color:#6B6B6B;cursor:pointer;font-size:15px}
+    .tab.active{color:#34C759;border-bottom:2px solid #34C759;font-weight:600}
+    .table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+    .table th{padding:12px 8px;color:#6B6B6B;font-weight:normal;border-bottom:1px solid #F2F2F7;text-align:left}
+    .table td{padding:12px 8px;border-bottom:1px solid #F2F2F7}
+    .user-row{background:#F2F2F7;font-weight:600}
+    .profile-header{text-align:center;margin-bottom:20px}
+    .profile-stats{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:20px 0}
+    .stat-card{background:#F8F9FA;padding:15px;border-radius:12px;text-align:center}
+    .stat-number{font-size:24px;font-weight:700;color:#34C759}
+    .stat-label{font-size:14px;color:#6B6B6B;margin-top:5px}
+    .achievements{display:flex;gap:15px;margin:20px 0;justify-content:center}
+    .achievement{text-align:center;padding:15px}
+    .achievement-icon{font-size:24px;margin-bottom:8px}
+    .achievement-name{font-size:12px;color:#6B6B6B}
+    .profile-menu{margin-top:30px}
+    .menu-item{padding:15px 0;border-bottom:1px solid #F2F2F7;font-size:17px}
+    .page{display:none}
+    .page.active{display:block}
+    .divider{height:1px;background:#F2F2F7;margin:20px 0}
+    a:focus,button:focus{outline:3px solid rgba(52,199,89,0.12);outline-offset:2px}
+    @media (min-width:480px){body{background:#fafafa}.container{margin-top:12px}}
+  </style>
+</head>
+<body>
+  <!-- Login -->
+  <main id="login-page" class="page active">
+    <div class="container">
+      <div class="header"><h1>ECO-FRIENDLY</h1></div>
+      <div class="login-form">
+        <input id="login-email" type="email" placeholder="Email address" class="input-field" />
+        <input id="login-password" type="password" placeholder="Password" class="input-field" />
+        <button class="btn-primary" onclick="handleLogin(event)">Login</button>
+        <button class="btn-secondary" onclick="showPage('signup-page')">Sign up</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Signup -->
+  <section id="signup-page" class="page">
+    <div class="container">
+      <div class="header"><h1>ECO-FRIENDLY</h1></div>
+      <div class="signup-form">
+        <input id="signup-nickname" type="text" placeholder="Nickname" class="input-field" />
+        <input id="signup-email" type="email" placeholder="Email address" class="input-field" />
+        <input id="signup-password" type="password" placeholder="Create Password" class="input-field" />
+        <input id="signup-password-confirm" type="password" placeholder="Confirm Password" class="input-field" />
+        <button class="btn-primary" onclick="handleSignup(event)">Sign up</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- User type -->
+  <section id="user-type-page" class="page">
+    <div class="container">
+      <div class="header"><h2>Расти вместе с нами</h2></div>
+      <input id="name" type="text" placeholder="Ваше имя" class="input-field" />
+      <select id="course" class="input-field">
+        <option>Курс обучения</option><option>1</option><option>2</option>
+      </select>
+      <input id="university" type="text" placeholder="Университет" class="input-field" />
+      <input id="speciality" type="text" placeholder="Специальность" class="input-field" />
+      <input id="phone" type="tel" placeholder="Номер телефона" class="input-field" />
+      <button class="btn-primary" onclick="showPage('home-page')">Зарегистрироваться</button>
+    </div>
+  </section>
+
+  <!-- Home (map) -->
+  <section id="home-page" class="page">
+    <div class="container">
+      <div class="header"><h2>Map of city cleanliness</h2></div>
+      <div class="map-container">
+        <div class="map-placeholder" role="img" aria-label="Карта города (заглушка)">
+          🗺️ Карта города
+          <div class="map-marker" style="top:30%;left:40%" title="Full bin">🗑️</div>
+          <div class="map-marker" style="top:60%;left:70%" title="Illegal dump">🚮</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tasks -->
+  <section id="tasks-page" class="page">
+    <div class="container">
+      <div class="header"><h1># Tasks</h1></div>
+      <div class="tabs"><div class="tab active">Nearby</div><div class="tab">Top-rated</div><div class="tab">Completed</div></div>
+      <div class="tasks-list">
+        <div class="task-card"><div class="task-title">Clean up park near Lenin St, 5</div>
+          <div class="task-info">Distance: 300 m</div>
+          <button class="btn-primary" onclick="takeTask(1)">Take task</button>
+        </div>
+
+        <div class="task-card"><div class="task-title">Report full bin (Pushkn St, 7)</div>
+          <div class="task-points">+25 Points</div>
+          <div class="task-info">Status: In Progress</div>
+          <button class="btn-secondary">View</button>
+        </div>
+
+        <div class="task-card"><div class="task-title">Remove illegal dump (Mira St, 12)</div>
+          <div class="task-points">+150 Points</div>
+          <button class="btn-primary" onclick="takeTask(3)">Take task</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Drones -->
+  <section id="drones-page" class="page">
+    <div class="container">
+      <div class="header"><h1>Drone-cameras</h1></div>
+      <h3 style="margin-bottom:10px">Active Patrol Zones</h3>
+      <p class="task-info" style="margin-bottom:20px">Live Feeds</p>
+      <div class="task-card">
+        <div class="task-title">Patrol: City Center</div>
+        <div class="task-info">3 Drones Active</div>
+        <button class="btn-secondary">View</button>
+      </div>
+      <h3 style="margin-top:30px;margin-bottom:15px">Status & Request</h3>
+      <button class="btn-primary" onclick="requestDrone()">Request Drone Patrol</button>
+      <div class="task-info" style="margin-top:10px">Coverage 60% of Area</div>
+      <div class="progress-bar" aria-hidden="true"><div class="progress-fill" style="width:60%"></div></div>
+    </div>
+  </section>
+
+  <!-- Rating -->
+  <section id="rating-page" class="page">
+    <div class="container">
+      <div class="header"><h1># Rating</h1></div>
+      <div class="task-card" aria-live="polite">
+        <h3 style="margin-bottom:15px">Your Progress</h3>
+        <div class="task-title">You #1234</div>
+        <div class="task-points" style="margin:10px 0">Your Points: 1,850 Pts</div>
+        <div class="task-info">Level: Eco-Activist</div>
+        <div class="progress-bar" aria-hidden="true"><div class="progress-fill" style="width:75%"></div></div>
+        <div class="task-info">1,500/2,000 Pts</div>
+      </div>
+
+      <div class="tabs"><div class="tab active">Weekly</div><div class="tab">Monthly</div><div class="tab">Overall</div></div>
+
+      <h3 style="margin:20px 0 10px">Leaderboard</h3>
+      <table class="table" role="table" aria-label="Leaderboard">
+        <thead><tr><th>Rank</th><th>Name</th><th>Points</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>City_Cleaner_01</td><td>4,200</td></tr>
+          <tr><td>2</td><td>Green_Patrol</td><td>3,890</td></tr>
+          <tr class="user-row"><td>1234</td><td>You</td><td>1,800</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Profile -->
+  <section id="profile-page" class="page">
+    <div class="container">
+      <div class="header"><h1># Profile</h1></div>
+      <div class="profile-header"><h2 style="margin-bottom:5px">You</h2><div class="task-points">City Hero</div></div>
+
+      <div class="profile-stats">
+        <div class="stat-card"><div class="stat-number">55</div><div class="stat-label">Reports Sent</div></div>
+        <div class="stat-card"><div class="stat-number">21</div><div class="stat-label">Tasks Completed</div></div>
+      </div>
+
+      <div class="task-card">
+        <div class="task-points" style="text-align:center;margin-bottom:10px">Points Earned: 1,890</div>
+        <div class="task-info" style="text-align:center">Influence on the city</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
+        <div class="task-info" style="text-align:center">625%</div>
+      </div>
+
+      <div class="divider"></div>
+      <h3 style="margin-bottom:15px">Achievements</h3>
+      <div class="achievements">
+        <div class="achievement"><div class="achievement-icon">🥇</div><div class="achievement-name">First Report</div></div>
+        <div class="achievement"><div class="achievement-icon">♻️</div><div class="achievement-name">Recycling Master</div></div>
+        <div class="achievement"><div class="achievement-icon">🏆</div><div class="achievement-name">Weekly Champion</div></div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="profile-menu">
+        <div class="menu-item" data-action="reports">My Reports</div>
+        <div class="menu-item" data-action="settings">Settings</div>
+        <div class="menu-item" data-action="help">Help & Support</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bonuses -->
+  <section id="bonus-page" class="page">
+    <div class="container">
+      <div class="header"><h1>Eco-Bonuses</h1></div>
+      <div class="task-card"><h2>Мой Баланс: 1450 Экокоинов</h2></div>
+
+      <div class="tabs"><div class="tab active">Все</div><div class="tab">Скидки</div><div class="tab">Подарки</div><div class="tab">Эко-товары</div><div class="tab">Сертификаты</div><div class="tab">Благотворительность</div></div>
+
+      <div class="tasks-list">
+        <div class="task-card"><div class="task-title">Бесплатный напиток в "CoffeeBean"</div><div class="task-points">300 Экокоинов</div><button class="btn-primary">Купить</button></div>
+        <div class="task-card"><div class="task-title">Скидка 15% на покупке в "EcoMarket"</div><div class="task-points">700 Экокоинов</div><button class="btn-primary">Купить</button></div>
+        <div class="task-card"><div class="task-title">Посадка дерева от вашего имени</div><div class="task-points">1500 Экокоинов</div><button class="btn-primary">Пожертвовать</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shared Bottom Navigation -->
+  <nav class="bottom-nav" role="navigation" aria-label="Главная навигация">
+    <a href="#" class="nav-item" data-page="home-page" aria-label="Home">🏠<span style="font-size:11px;margin-top:4px">Home</span></a>
+    <a href="#" class="nav-item" data-page="tasks-page" aria-label="Tasks">📋<span style="font-size:11px;margin-top:4px">Tasks</span></a>
+    <a href="#" class="nav-item" data-page="drones-page" aria-label="Cameras">🚁<span style="font-size:11px;margin-top:4px">Cameras</span></a>
+    <a href="#" class="nav-item" data-page="rating-page" aria-label="Rating">🏆<span style="font-size:11px;margin-top:4px">Rating</span></a>
+    <a href="#" class="nav-item" data-page="profile-page" aria-label="Profile">👤<span style="font-size:11px;margin-top:4px">Profile</span></a>
+  </nav>
+
+  <script>
+    // showPage no longer relies on a global event; it updates pages and bottom nav state
+    function showPage(pageId) {
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(p => p.classList.remove('active'));
+      const target = document.getElementById(pageId);
+      if (!target) return console.warn('Page not found:', pageId);
+      target.classList.add('active');
+
+      // update nav active state
+      document.querySelectorAll('.nav-item').forEach(nav => {
+        nav.classList.toggle('active', nav.dataset.page === pageId);
+      });
+
+      // scroll top for mobile UX
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Attach click handlers to nav items (prevent default anchor behavior)
+    document.querySelectorAll('.nav-item').forEach(nav => {
+      nav.addEventListener('click', function (e) {
+        e.preventDefault();
+        const page = this.dataset.page;
+        if (page) showPage(page);
+      });
+    });
+
+    // Simple task/drone handlers (placeholders)
+    function takeTask(taskId) {
+      alert('Task ' + taskId + ' accepted! You will receive points after completion.');
+    }
+    function requestDrone() {
+      alert('Drone patrol requested! Our team will review your request.');
+    }
+
+    // Simple form handlers (stub: replace with real auth/backend)
+    function handleLogin(e) {
+      if (e) e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      if (!email) { alert('Please enter email'); return; }
+      localStorage.setItem('eco_user', JSON.stringify({email}));
+      showPage('home-page');
+    }
+    function handleSignup(e) {
+      if (e) e.preventDefault();
+      const email = document.getElementById('signup-email').value;
+      if (!email) { alert('Please enter email'); return; }
+      localStorage.setItem('eco_new_user', JSON.stringify({
+        nickname: document.getElementById('signup-nickname').value,
+        email
+      }));
+      showPage('user-type-page');
+    }
+
+    // Menu item actions (example behavior)
+    document.addEventListener('click', function (e) {
+      const t = e.target.closest('[data-action]');
+      if (!t) return;
+      const action = t.dataset.action;
+      if (action === 'reports') showPage('bonus-page');
+      if (action === 'settings') alert('Open settings (stub)');
+      if (action === 'help') alert('Open help & support (stub)');
+    });
+
+    // On load: show home if user remembered
+    window.addEventListener('DOMContentLoaded', function () {
+      const user = localStorage.getItem('eco_user');
+      if (user) showPage('home-page');
+      else showPage('login-page');
+    });
+  </script>
+</body>
+</html>
